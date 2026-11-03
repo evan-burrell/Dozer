@@ -24,8 +24,7 @@ targets:
   Dozer:
     type: application
     platform: macOS
-    deploymentTarget:
-      macOS: "13.0"
+    deploymentTarget: "13.0"
     configFiles:
       Debug: Configs/Debug.xcconfig
       Release: Configs/Release.xcconfig
@@ -46,6 +45,8 @@ targets:
         SWIFT_VERSION: 5
         DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
         ENABLE_HARDENED_RUNTIME: true
+        # Xcode 27 made ARCHS_STANDARD arm64-only; keep x86_64 for Intel Macs on macOS 13–26.
+        ARCHS: "arm64 x86_64"
         VERSIONING_SYSTEM: apple-generic
         CURRENT_PROJECT_VERSION: 30
     dependencies:
