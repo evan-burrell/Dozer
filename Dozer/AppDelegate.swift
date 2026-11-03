@@ -6,10 +6,16 @@ import Cocoa
 import MASShortcut
 import Sparkle
 import Defaults
-import Preferences
+import Settings
 
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
+    let updaterController = SPUStandardUpdaterController(
+        startingUpdater: true,
+        updaterDelegate: nil,
+        userDriverDelegate: nil
+    )
+
     func applicationDidFinishLaunching(_: Notification) {
         MASShortcutBinder.shared()?.bindShortcut(withDefaultsKey: UserDefaultKeys.Shortcuts.ToggleMenuItems) { () in
             DozerIcons.shared.toggle()
@@ -30,13 +36,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 
-    lazy var preferences: [PreferencePane] = [
+    lazy var preferences: [SettingsPane] = [
         Dozer(),
         General()
     ]
 
-    lazy var preferencesWindowController = PreferencesWindowController(
-        preferencePanes: preferences,
+    lazy var preferencesWindowController = SettingsWindowController(
+        panes: preferences,
         style: .toolbarItems,
         animated: true,
         hidesToolbarForSingleItem: true
